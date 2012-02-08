@@ -1,6 +1,9 @@
 package org.moparscape.elysium.entity;
 
+import java.util.Map;
+
 import org.moparscape.elysium.Server;
+import org.moparscape.elysium.entity.component.Component;
 import org.moparscape.elysium.entity.component.Movement;
 import org.moparscape.elysium.external.NpcDef;
 import org.moparscape.elysium.world.Point;
@@ -10,7 +13,11 @@ import org.moparscape.elysium.world.Point;
  *
  * @author lothy
  */
-public final class Npc implements Indexable, Locatable {
+public final class Npc extends Entity implements Indexable, Locatable {
+	
+	public Npc(Map<Class<? extends Component>, Component> components) {
+        super(components);
+	}
 
     private static final Server server = Server.getInstance();
 

@@ -8,55 +8,62 @@ import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
- *
+ * 
  * @author lothy
  */
 public final class DefaultEntityFactory implements EntityFactory {
 
-    public Npc newNpc(NpcLoc loc) {
-//        Map<Class<? extends Component>, Component> components =
-//                new HashMap<Class<? extends Component>, Component>();
-//
-//        components.put(NpcLoc.class, loc);
-//        components.put(Health.class, new Health());
-//        components.put(Movement.class, new Movement());
-//
-//        for (Component c : components.values()) {
-//            c.resolveDependencies(components);
-//        }
+	public Npc newNpc(NpcLoc loc) {
+		// Map<Class<? extends Component>, Component> components =
+		// new HashMap<Class<? extends Component>, Component>();
+		//
+		// components.put(NpcLoc.class, loc);
+		// components.put(Health.class, new Health());
+		// components.put(Movement.class, new Movement());
+		//
+		// for (Component c : components.values()) {
+		// c.resolveDependencies(components);
+		// }
+		Map<Class<? extends Component>, Component> components = new HashMap<Class<? extends Component>, Component>(
+				1, 0.4f);
+		components.put(State.class, new State());
+		
+		for (Component c : components.values()) {
+			c.resolveDependencies(components);
+		}
+		
+		
+		return new Npc(components);
+	}
 
-        return new Npc();
-    }
+	public Player newPlayer(Session session) {
+		Map<Class<? extends Component>, Component> components = new HashMap<Class<? extends Component>, Component>(
+				30, 0.4f);
 
-    public Player newPlayer(Session session) {
-        Map<Class<? extends Component>, Component> components =
-                new HashMap<Class<? extends Component>, Component>(30, 0.4f);
+		components.put(Combat.class, new Combat());
+		components.put(Communication.class, new Communication());
+		components.put(Credentials.class, new Credentials());
+		components.put(Skills.class, new Skills());
+		components.put(UpdateProxy.class, new UpdateProxy());
 
+		Appearance appearance = new Appearance();
+		components.put(Appearance.class, appearance);
 
-        components.put(Combat.class, new Combat());
-        components.put(Communication.class, new Communication());
-        components.put(Credentials.class, new Credentials());
-        components.put(Skills.class, new Skills());
-        components.put(UpdateProxy.class, new UpdateProxy());
+		Movement movement = new Movement();
+		components.put(Movement.class, movement);
 
-        Appearance appearance = new Appearance();
-        components.put(Appearance.class, appearance);
+		Observer observer = new Observer();
+		components.put(Observer.class, observer);
 
-        Movement movement = new Movement();
-        components.put(Movement.class, movement);
+		for (Component c : components.values()) {
+			c.resolveDependencies(components);
+		}
 
-        Observer observer = new Observer();
-        components.put(Observer.class, observer);
+		Player player = new Player(session, components);
+		appearance.setOwner(player);
+		movement.setOwner(player);
+		observer.setOwner(player);
 
-        for (Component c : components.values()) {
-            c.resolveDependencies(components);
-        }
-
-        Player player = new Player(session, components);
-        appearance.setOwner(player);
-        movement.setOwner(player);
-        observer.setOwner(player);
-
-        return player;
-    }
+		return player;
+	}
 }
