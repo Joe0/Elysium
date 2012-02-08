@@ -7,7 +7,7 @@ import org.moparscape.elysium.net.codec.Message;
  *
  * @author lothy
  */
-public abstract class AbstractMessageDecoder<T extends Message> implements MessageDecoder {
+public abstract class AbstractMessageDecoder<T extends Message> implements MessageDecoder<T> {
 
     private final Class<T> messageType;
 

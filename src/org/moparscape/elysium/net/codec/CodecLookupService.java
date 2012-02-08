@@ -27,9 +27,12 @@ public final class CodecLookupService {
 
 		try {
 			// All decoders end with Decoder, so filter all other classes out.
-			Class[] classes = ClassLoadingUtil.getClassesInPackage(
-					"org.moparscape.elysium.net.codec.decoder", "^(.*Decoder)");
-			for (Class c : classes) {
+			@SuppressWarnings("unchecked")
+			Class<? extends MessageDecoder<? extends Message>>[] classes = (Class<? extends MessageDecoder<? extends Message>>[]) ClassLoadingUtil
+					.getClassesInPackage(
+							"org.moparscape.elysium.net.codec.decoder",
+							"^(.*Decoder)");
+			for (Class<? extends MessageDecoder<? extends Message>> c : classes) {
 				// Don't include abstract classes or interfaces
 				if (!Modifier.isAbstract(c.getModifiers()) && !c.isInterface()) {
 					try {
@@ -40,7 +43,6 @@ public final class CodecLookupService {
 							continue;
 					} catch (Exception e) {
 					}
-					
 					bindings.bindDecoder(c);
 				}
 			}

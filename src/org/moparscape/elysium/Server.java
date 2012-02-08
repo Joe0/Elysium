@@ -67,7 +67,6 @@ public class Server {
 
         this.bootstrap.setPipelineFactory(new ElysiumPipelineFactory());
         this.bootstrap.bind(new InetSocketAddress(43594));
-        CodecLookupService.getDecoder(0);
     }
 
     private void gameLoop() {

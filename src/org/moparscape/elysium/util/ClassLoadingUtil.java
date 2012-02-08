@@ -28,7 +28,7 @@ public class ClassLoadingUtil {
 	 *            an optional class name pattern.
 	 * @return The classes
 	 */
-	public static Class[] getClassesInPackage(String packageName,
+	public static Class<?>[] getClassesInPackage(String packageName,
 			String regexFilter) {
 		Pattern regex = null;
 		if (regexFilter != null)
@@ -49,7 +49,7 @@ public class ClassLoadingUtil {
 			for (String directory : dirs) {
 				classes.addAll(findClasses(directory, packageName, regex));
 			}
-			ArrayList<Class> classList = new ArrayList<Class>();
+			List<Class<?>> classList = new ArrayList<Class<?>>();
 			for (String clazz : classes) {
 				classList.add(Class.forName(clazz));
 			}
