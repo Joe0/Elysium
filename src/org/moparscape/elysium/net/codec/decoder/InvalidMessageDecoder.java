@@ -8,6 +8,7 @@ import org.moparscape.elysium.net.codec.decoder.message.InvalidMessage;
  *
  * @author lothy
  */
+@DecoderAnnotation(shouldIgnore = true)
 public final class InvalidMessageDecoder implements MessageDecoder<InvalidMessage> {
 
     public int getOpcode() {

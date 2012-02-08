@@ -3,6 +3,7 @@ package org.moparscape.elysium;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import org.moparscape.elysium.net.Session;
+import org.moparscape.elysium.net.codec.CodecLookupService;
 import org.moparscape.elysium.net.codec.ElysiumPipelineFactory;
 import org.moparscape.elysium.task.IssueUpdatePacketsTask;
 import org.moparscape.elysium.task.SessionPulseTask;
@@ -66,6 +67,7 @@ public class Server {
 
         this.bootstrap.setPipelineFactory(new ElysiumPipelineFactory());
         this.bootstrap.bind(new InetSocketAddress(43594));
+        CodecLookupService.getDecoder(0);
     }
 
     private void gameLoop() {
