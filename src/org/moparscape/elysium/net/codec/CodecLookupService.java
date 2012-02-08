@@ -26,18 +26,21 @@ public final class CodecLookupService {
 		// Initialise all of the decoders in this block
 
 		try {
+			// All decoders end with Decoder, so filter all other classes out.
 			Class[] classes = ClassLoadingUtil.getClassesInPackage(
 					"org.moparscape.elysium.net.codec.decoder", "^(.*Decoder)");
 			for (Class c : classes) {
-				if (!Modifier.isAbstract(c.getModifiers())) {
-
+				// Don't include abstract classes or interfaces
+				if (!Modifier.isAbstract(c.getModifiers()) && !c.isInterface()) {
 					try {
+						// Ignore decoders that should be ignored.
 						if (((DecoderAnnotation) c
 								.getAnnotation(DecoderAnnotation.class))
 								.shouldIgnore())
 							continue;
 					} catch (Exception e) {
 					}
+					
 					bindings.bindDecoder(c);
 				}
 			}
