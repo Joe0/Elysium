@@ -132,7 +132,7 @@ public final class IndexableCopyOnWriteArrayList<E extends Indexable> implements
             return false;
         }
 
-        IndexableCopyOnWriteArrayList<?> other = (IndexableCopyOnWriteArrayList) o;
+        IndexableCopyOnWriteArrayList<?> other = (IndexableCopyOnWriteArrayList<?>) o;
         Iterator<?> it = other.iterator();
         Object[] elements = array;
         int len = array.length;

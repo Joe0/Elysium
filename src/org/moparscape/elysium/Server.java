@@ -108,6 +108,7 @@ public class Server {
         }
 
         // TODO: Implement shutdown procedure and cleanup here
+        shutdown0();
     }
 
     private void pulseSessions() throws Exception {
@@ -168,6 +169,9 @@ public class Server {
 
     private void shutdown0() {
         // Shut the executors down so that the program can exit
+    	bootstrap.releaseExternalResources();
+    	taskExecutorService.shutdown();
+    	dataExecutorService.shutdown();
     }
 
     public static Server getInstance() {

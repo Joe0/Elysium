@@ -1,4 +1,4 @@
-package org.moparscape.elysium;
+
 
 import org.moparscape.elysium.util.SplittableCopyOnWriteArrayList;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
  *
  * @author lothy
  */
-public class Derp {
+public class SplittableCopyOnWriteArrayListTest {
 
     public static void main(String[] args) throws Exception {
 //        int len = 1000;
